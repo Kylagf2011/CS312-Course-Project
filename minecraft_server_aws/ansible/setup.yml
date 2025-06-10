@@ -1,0 +1,94 @@
+- hosts: minecraft
+  become: yes
+  vars:
+    minecraft_dir: /opt/minecraft
+    minecraft_jar_url: "https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7f509733/server.jar"
+
+  tasks:
+    - name: Remove old Java (optional cleanup)
+      yum:
+        name: java-1.8.0-openjdk
+        state: absent
+      ignore_errors: yes
+
+    - name: Add Adoptium GPG key
+      rpm_key:
+        key: https://packages.adoptium.net/artifactory/api/gpg/key/public
+        state: present
+
+    - name: Add Adoptium repo
+      copy:
+        dest: /etc/yum.repos.d/adoptium.repo
+        content: |
+          [Adoptium]
+          name=Adoptium
+          baseurl=https://packages.adoptium.net/artifactory/rpm/amazonlinux/2/x86_64
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://packages.adoptium.net/artifactory/api/gpg/key/public
+
+    - name: Install Java 21 (Temurin)
+      yum:
+        name: temurin-21-jdk
+        state: present
+
+    - name: Ensure wget is installed
+      yum:
+        name: wget
+        state: present
+
+    - name: Create Minecraft directory
+      file:
+        path: "{{ minecraft_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Set ec2-user ownership for Minecraft directory
+      file:
+        path: "{{ minecraft_dir }}"
+        state: directory
+        recurse: yes
+        owner: ec2-user
+        group: ec2-user
+
+    - name: Download Minecraft server jar
+      get_url:
+        url: "{{ minecraft_jar_url }}"
+        dest: "{{ minecraft_dir }}/server.jar"
+        mode: '0755'
+        force: yes
+        owner: ec2-user
+        group: ec2-user
+
+    - name: Accept EULA
+      copy:
+        dest: "{{ minecraft_dir }}/eula.txt"
+        content: "eula=true\n"
+        owner: ec2-user
+        group: ec2-user
+        mode: '0644'
+
+    - name: Create systemd service for Minecraft
+      copy:
+        dest: /etc/systemd/system/minecraft.service
+        content: |
+          [Unit]
+          Description=Minecraft Server
+          After=network.target
+
+          [Service]
+          WorkingDirectory={{ minecraft_dir }}
+          ExecStart=/usr/bin/java -Xmx1024M -Xms1024M -jar {{ minecraft_dir }}/server.jar nogui
+          Restart=on-failure
+          User=ec2-user
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Reload systemd and start Minecraft
+      systemd:
+        name: minecraft
+        enabled: yes
+        state: restarted
+        daemon_reload: yes
+
