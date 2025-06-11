@@ -22,5 +22,28 @@ Python: v3.13.3
 5. Verify the installation using `wsl --list --verbose`
 6. Open the Ubuntu Terminal using `ubuntu2404.exe` in the PowerShell
 
+### On Mac
+1. Install a Virtualization Software ([VitualBox](https://www.virtualbox.org/))
+2. Download the Ubuntu ISO image ([Ubuntu ISO](https://ubuntu.com/download/desktop))
+3. Launch VirtualBox
+4. Select the "New" button
+5. Select Linux and Ubuntu 64-bit as the operating types
+6. Configure the memory and storage acording to Ubuntu specifications ([Ubuntu VirtualBox Tutorial](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview))
+7. Attatch the Ubuntu ISO image to the virtual machine
+
+## Terraform
+1. Ensure the system is up to date by and the `gnupg`, `software-properties-common`, and `curl` packages are installed by running: `sudo apt-get update && sudo apt-get install -y gnupg software-properties-common`
+2. Install the HashiCorp GPG key by running: `wget -O- https://apt.releases.hashicorp.com/gpg | \
+gpg --dearmor | \
+sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null`
+3. Verify the key's fingerpint by running: `gpg --no-default-keyring \
+--keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+--fingerprint`
+4. Add the HashiCorp repository to the system by running: `echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list`
+5. Download the package information by running: `sudo apt update`
+6. Install Terraform from a the new repository by running: `sudo apt-get install terraform`
+7. Verify that Terraform is working by opening a new terminal running: `terraform -help`
+
 ## Sources
 1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
+2. [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
