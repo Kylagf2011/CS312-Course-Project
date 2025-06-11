@@ -148,6 +148,20 @@ sudo apt install nmap
 nmap -v
 ```
 
+## Credentials & Environment Variables
+### AWS Credentials
+Locate the Access Key Id, the Secret Key, and the Session Token (if using learner lab)
+
+### Environment Variables
+To set the variables within the environment, run the following in the main directory of the project:
+```
+aws configure set aws_access_key_id "your_key"
+aws configure set aws_secret_access_key "your_secret"
+aws configure set aws_session_token "your_session" #only if using the learner lab
+```
+
+## Steps to Starting the Server
+
 ## Sources
 1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
 2. [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
