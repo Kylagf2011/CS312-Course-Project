@@ -10,7 +10,7 @@ The goal of this project is to fully automate the provisioning, configuration, a
 **Ansible**: core v2.18.5  
 **AWS CLI**: v2.27.25  
 **nmap**: v7.94SVN  
-**Python**: v3.13.3  
+**Python**: v3.12.3  
 
 ## Tool Installation
 ### Ubuntu
@@ -116,8 +116,42 @@ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
    aws --version
 ```
 
+### Python
+1. Update the system:
+```
+sudo apt update -y && sudo apt upgrade -y
+```
+2. Check for previous versions of Python:
+```
+python -V
+```
+3. Install Python 3 using the following command:
+```
+sudo apt install python3
+```
+4. Verify Installation:
+```
+python3 -V
+```
+
+### Nmap
+1. Update the package list:
+```
+sudo apt update
+```
+2. Install the Nmap package:
+```
+sudo apt install nmap
+```
+3. Verify Nmap Installation:
+```
+nmap -v
+```
+
 ## Sources
 1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
 2. [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 3. [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#id6)
 4. [Install or Update AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+5. [Install Python](https://www.rosehosting.com/blog/how-to-install-python-on-ubuntu-24-04/)
+6. [Install Nmap](https://www.stationx.net/install-nmap-ubuntu/)
