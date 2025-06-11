@@ -71,6 +71,28 @@ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
   terraform -help
 ```
 
+### Ansible
+1. Update system package:
+```
+   sudo apt update
+```
+2. Install dependencies:
+```
+   sudo apt install software-properties-common
+```
+3. Add the Ansible PPA:
+```
+   sudo add-apt-repository --yes --update ppa:ansible/ansible
+```
+4. Install Ansible:
+```
+   sudo apt install ansible
+```
+5. Verify the installation:
+```
+   ansible --version
+```
+
 ### AWS CLI
 **If a version of AWS CLI is already installed, remove it by running `sudo yum remove awscli`**
 1. Download the installation file by running:
@@ -97,4 +119,5 @@ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
 ## Sources
 1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
 2. [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
-3. [Install or Update AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+3. [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#id6)
+4. [Install or Update AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
