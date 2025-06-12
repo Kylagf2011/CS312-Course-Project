@@ -1,76 +1,49 @@
-- hosts: minecraft
+---
+- name: Provision and Configure Minecraft Server
+  hosts: minecraft
   become: yes
   vars:
     minecraft_dir: /opt/minecraft
-    minecraft_jar_url: "https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7f509733/server.jar"
+    minecraft_user: ec2-user
+    server_jar_url: "https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7f509733/server.jar"
 
   tasks:
-    - name: Remove old Java (optional cleanup)
-      yum:
-        name: java-1.8.0-openjdk
-        state: absent
-      ignore_errors: yes
-
-    - name: Add Adoptium GPG key
-      rpm_key:
-        key: https://packages.adoptium.net/artifactory/api/gpg/key/public
-        state: present
-
-    - name: Add Adoptium repo
-      copy:
-        dest: /etc/yum.repos.d/adoptium.repo
-        content: |
-          [Adoptium]
-          name=Adoptium
-          baseurl=https://packages.adoptium.net/artifactory/rpm/amazonlinux/2/x86_64
-          enabled=1
-          gpgcheck=1
-          gpgkey=https://packages.adoptium.net/artifactory/api/gpg/key/public
-
-    - name: Install Java 21 (Temurin)
-      yum:
-        name: temurin-21-jdk
-        state: present
-
-    - name: Ensure wget is installed
-      yum:
-        name: wget
+    - name: Install dependencies
+      package:
+        name:
+          - java-21-amazon-corretto
+          - wget
         state: present
 
     - name: Create Minecraft directory
       file:
         path: "{{ minecraft_dir }}"
         state: directory
+        owner: "{{ minecraft_user }}"
+        group: "{{ minecraft_user }}"
         mode: '0755'
-
-    - name: Set ec2-user ownership for Minecraft directory
-      file:
-        path: "{{ minecraft_dir }}"
-        state: directory
-        recurse: yes
-        owner: ec2-user
-        group: ec2-user
 
     - name: Download Minecraft server jar
       get_url:
-        url: "{{ minecraft_jar_url }}"
+        url: "{{ server_jar_url }}"
         dest: "{{ minecraft_dir }}/server.jar"
-        mode: '0755'
+        mode: '0644'
         force: yes
-        owner: ec2-user
-        group: ec2-user
 
     - name: Accept EULA
       copy:
         dest: "{{ minecraft_dir }}/eula.txt"
         content: "eula=true\n"
-        owner: ec2-user
-        group: ec2-user
+        owner: "{{ minecraft_user }}"
+        group: "{{ minecraft_user }}"
         mode: '0644'
 
-    - name: Create systemd service for Minecraft
+    - name: Create or update minecraft.service with proper shutdown handling
       copy:
         dest: /etc/systemd/system/minecraft.service
+        owner: root
+        group: root
+        mode: '0644'
         content: |
           [Unit]
           Description=Minecraft Server
@@ -78,17 +51,20 @@
 
           [Service]
           WorkingDirectory={{ minecraft_dir }}
-          ExecStart=/usr/bin/java -Xmx1024M -Xms1024M -jar {{ minecraft_dir }}/server.jar nogui
+          ExecStart=/usr/bin/java -Xmx1024M -Xms1024M -jar server.jar nogui
+          ExecStop=/bin/kill -s SIGINT $MAINPID
           Restart=on-failure
-          User=ec2-user
+          User={{ minecraft_user }}
 
           [Install]
           WantedBy=multi-user.target
 
-    - name: Reload systemd and start Minecraft
+    - name: Reload systemd
+      command: systemctl daemon-reload
+
+    - name: Enable and restart Minecraft service
       systemd:
         name: minecraft
         enabled: yes
         state: restarted
-        daemon_reload: yes
 
