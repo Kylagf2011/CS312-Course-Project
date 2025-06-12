@@ -14,7 +14,7 @@ The goal of this project is to fully automate the provisioning, configuration, a
 
 ## Tool Installation
 ### Ubuntu
-#### On Windows
+#### On Windows [^1]
 1. Open Windows PowerShell as an administrator
 2. Run:
 ```
@@ -28,7 +28,7 @@ The goal of this project is to fully automate the provisioning, configuration, a
 ```
 7. Open the Ubuntu Terminal using `ubuntu2404.exe` in the PowerShell
 
-#### On Mac
+#### On Mac [^2]
 1. Install a Virtualization Software ([VitualBox](https://www.virtualbox.org/))
 2. Download the Ubuntu ISO image ([Ubuntu ISO](https://ubuntu.com/download/desktop))
 3. Launch VirtualBox
@@ -206,8 +206,8 @@ graph TD
 ```
 
 ## Sources
-1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
-2. [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+[^1] [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
+[^2] [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 3. [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#id6)
 4. [Install or Update AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 5. [Install Python](https://www.rosehosting.com/blog/how-to-install-python-on-ubuntu-24-04/)
