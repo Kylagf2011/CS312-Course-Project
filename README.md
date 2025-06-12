@@ -161,6 +161,40 @@ aws configure set aws_session_token "your_session" #only if using the learner la
 ```
 
 ## Steps to Starting the Server
+1. Open the Ubuntu Terminal
+2. Either download the files from this repository and make sure they are in the Ubuntu system **OR** use the following command:
+```
+git clone https://github.com/Kylagf2011/CS312-Course-Project <name_new_directory>
+```
+3. Navigate into the Minecraft sever directory
+4. Following the steps from the *Environment Variables* section, set up credentials information
+5. Navigate into the *Terraform* directory
+6. Run the following command to build the AWS EC2 instance:
+```
+terraform init
+```
+7. Then run the following to actually apply the configuration and type yes when prompted to:
+```
+terraform apply
+```
+8. Make note of the Public IP that is printed out so you do not have to track it down later
+9. Navigate back to the main project directory
+10. Navigate to the *Ansible* directory
+11. the `setup.yml` is used to setup Java and the other Minecraft essentials. A secondary file `ansible.cfg` has been setup to configure any flags that are used for ease of execution. To run it, simply use the following:
+```
+ansible-playbook setup.yml
+```
+12. To ensure that the Minecraft port (25565) is open and listening, run the following command:
+```
+nmap -sV -Pn -p T:25565 $(grep -v '\[' inventory.ini)
+```
+13. Open Minecraft
+14. Select Multiplayer
+15. Select Direct Connection
+16. Enter to Public IP that you saved earlier. If you did not save it use the following command to obtain it:
+```
+terraform output public_ip
+```
 
 ## Sources
 1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
