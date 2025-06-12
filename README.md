@@ -206,8 +206,8 @@ graph TD
 ```
 
 ## Sources
-[^1] [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
-[^2] [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+[^1]: [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
+[^2]: [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 3. [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#id6)
 4. [Install or Update AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 5. [Install Python](https://www.rosehosting.com/blog/how-to-install-python-on-ubuntu-24-04/)
