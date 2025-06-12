@@ -199,7 +199,7 @@ terraform output public_ip
 ## Pipeline Diagram
 ```mermaid
 graph TD
-    A[Your Local Machine] --> B[Terraform: Provision EC2 + SG]
+    A[Your Local Machine: Ubuntu 24.04] --> B[Terraform: Provision EC2 + SG]
     B --> C[AWS: EC2 Instance with port 25565 open]
     C --> D[Ansible: Install Java, Download Server, Enable Service]
     D --> E[Minecraft Server Running]
