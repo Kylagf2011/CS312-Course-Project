@@ -168,7 +168,7 @@ git clone https://github.com/Kylagf2011/CS312-Course-Project <name_new_directory
 ```
 3. Navigate into the Minecraft sever directory
 4. Following the steps from the *Environment Variables* section, set up credentials information
-5. Navigate into the *Terraform* directory
+5. Navigate into the *terraform* directory
 6. Run the following command to build the AWS EC2 instance:
 ```
 terraform init
@@ -177,9 +177,13 @@ terraform init
 ```
 terraform apply
 ```
+*If there is an error about no file `~/.ssh/id_rsa.pub`, run the following command to ensure the RSA key exists:*
+```
+ssh-keygen -t rsa -b 4096
+```
 8. Make note of the Public IP that is printed out so you do not have to track it down later
 9. Navigate back to the main project directory
-10. Navigate to the *Ansible* directory
+10. Navigate to the *ansible* directory
 11. the `setup.yml` is used to setup Java and the other Minecraft essentials. A secondary file `ansible.cfg` has been setup to configure any flags that are used for ease of execution. To run it, simply use the following:
 ```
 ansible-playbook setup.yml
