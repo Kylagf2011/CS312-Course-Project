@@ -196,6 +196,15 @@ nmap -sV -Pn -p T:25565 $(grep -v '\[' inventory.ini)
 terraform output public_ip
 ```
 
+## Pipeline Diagram
+```mermaid
+graph TD
+    A[Your Local Machine] --> B[Terraform: Provision EC2 + SG]
+    B --> C[AWS: EC2 Instance with port 25565 open]
+    C --> D[Ansible: Install Java, Download Server, Enable Service]
+    D --> E[Minecraft Server Running]
+```
+
 ## Sources
 1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
 2. [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
