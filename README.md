@@ -2,7 +2,7 @@
 Course Project Part 2 for CS 312 (System Administration)
 
 ## Overview
-The goal of this project is to fully automate the provisioning, configuration, and deployment of a Minecraft server through AWS. In place of manually running the AWS console, or using ssh, Infrastructure as Code (IaC) tools and configuration management were used to create a deployable server.
+The goal of this project is to fully automate the provisioning, configuration, and deployment of a Minecraft server through AWS. In place of manually running the AWS console, or using SSH, Infrastructure as Code (IaC) tools and configuration management were used to create a deployable server.
 
 ## Tool Requirements
 **OS**: Ubuntu v24.04.1  
@@ -29,16 +29,16 @@ The goal of this project is to fully automate the provisioning, configuration, a
 7. Open the Ubuntu Terminal using `ubuntu2404.exe` in the PowerShell
 
 #### On Mac
-1. Install a Virtualization Software ([VitualBox](https://www.virtualbox.org/))
+1. Install a virtualization software ([VitualBox](https://www.virtualbox.org/))
 2. Download the Ubuntu ISO image ([Ubuntu ISO](https://ubuntu.com/download/desktop))
 3. Launch VirtualBox
 4. Select the "New" button
 5. Select Linux and Ubuntu 64-bit as the operating types
-6. Configure the memory and storage acording to Ubuntu specifications ([Ubuntu VirtualBox Tutorial](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview))
-7. Attatch the Ubuntu ISO image to the virtual machine
+6. Configure the memory and storage according to Ubuntu specifications ([Ubuntu VirtualBox Tutorial](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview))
+7. Attach the Ubuntu ISO image to the virtual machine
 
 ### Terraform [^2]
-1. Ensure the system is up to date by and the `gnupg`, `software-properties-common`, and `curl` packages are installed by running:
+1. Ensure the system is up to date and that `gnupg`, `software-properties-common`, and `curl` packages are installed by running:
 ```
    sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 ```
@@ -48,7 +48,7 @@ The goal of this project is to fully automate the provisioning, configuration, a
 gpg --dearmor | \
 sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
 ```
-5. Verify the key's fingerpint by running:
+5. Verify the key's fingerprint by running:
 ```
   gpg --no-default-keyring \
   --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
@@ -62,11 +62,11 @@ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
 ```
    sudo apt update
 ```
-10. Install Terraform from a the new repository by running:
+10. Install Terraform from the new repository by running:
 ```
   sudo apt-get install terraform
 ```
-12. Verify that Terraform is working by opening a new terminal running:
+12. Verify that Terraform is working by opening a new terminal and running:
 ```
   terraform -help
 ```
@@ -99,7 +99,7 @@ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
 ```
    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 ```
-3. Install unzip onto the Ubuntu machine using
+3. Install `unzip` onto the Ubuntu machine using:
 ```
    sudo apt install unzip
 ```
@@ -166,14 +166,14 @@ aws configure set aws_session_token "your_session" #only if using the learner la
 ```
 git clone https://github.com/Kylagf2011/CS312-Course-Project <name_new_directory>
 ```
-3. Navigate into the Minecraft sever directory
-4. Following the steps from the *Environment Variables* section, set up credentials information
+3. Navigate into the Minecraft server directory
+4. Follow the steps from the *Environment Variables* section to set up credential information
 5. Navigate into the *terraform* directory
 6. Run the following command to build the AWS EC2 instance:
 ```
 terraform init
 ```
-7. Then run the following to actually apply the configuration and type yes when prompted to:
+7. Then the configuration by running the following and typing "yes" when prompted:
 ```
 terraform apply
 ```
@@ -184,18 +184,18 @@ ssh-keygen -t rsa -b 4096
 8. Make note of the Public IP that is printed out so you do not have to track it down later
 9. Navigate back to the main project directory
 10. Navigate to the *ansible* directory
-11. the `setup.yml` is used to setup Java and the other Minecraft essentials. A secondary file `ansible.cfg` has been setup to configure any flags that are used for ease of execution. To run it, simply use the following:
+11. The `setup.yml` sets up Java and other Minecraft essentials. A secondary file `ansible.cfg` has been setup to configure any flags that are used for ease of execution. To run it, simply use the following:
 ```
 ansible-playbook setup.yml
 ```
-12. To ensure that the Minecraft port (25565) is open and listening, run the following command:
+12. To confirm that Minecraft's port (25565) is open and listening, run:
 ```
 nmap -sV -Pn -p T:25565 $(grep -v '\[' inventory.ini)
 ```
 13. Open Minecraft
 14. Select Multiplayer
 15. Select Direct Connection
-16. Enter to Public IP that you saved earlier. If you did not save it use the following command to obtain it:
+16. Enter to Public IP address that you saved earlier. If you did not save it use the following command to obtain it:
 ```
 terraform output public_ip
 ```
