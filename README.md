@@ -28,7 +28,7 @@ The goal of this project is to fully automate the provisioning, configuration, a
 ```
 7. Open the Ubuntu Terminal using `ubuntu2404.exe` in the PowerShell
 
-#### On Mac [^2]
+#### On Mac
 1. Install a Virtualization Software ([VitualBox](https://www.virtualbox.org/))
 2. Download the Ubuntu ISO image ([Ubuntu ISO](https://ubuntu.com/download/desktop))
 3. Launch VirtualBox
@@ -37,7 +37,7 @@ The goal of this project is to fully automate the provisioning, configuration, a
 6. Configure the memory and storage acording to Ubuntu specifications ([Ubuntu VirtualBox Tutorial](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview))
 7. Attatch the Ubuntu ISO image to the virtual machine
 
-### Terraform
+### Terraform [^2]
 1. Ensure the system is up to date by and the `gnupg`, `software-properties-common`, and `curl` packages are installed by running:
 ```
    sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
@@ -71,7 +71,7 @@ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
   terraform -help
 ```
 
-### Ansible
+### Ansible [^3]
 1. Update system package:
 ```
    sudo apt update
@@ -93,7 +93,7 @@ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
    ansible --version
 ```
 
-### AWS CLI
+### AWS CLI [^4]
 **If a version of AWS CLI is already installed, remove it by running `sudo yum remove awscli`**
 1. Download the installation file by running:
 ```
@@ -116,7 +116,7 @@ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
    aws --version
 ```
 
-### Python
+### Python [^5]
 1. Update the system:
 ```
 sudo apt update -y && sudo apt upgrade -y
@@ -134,7 +134,7 @@ sudo apt install python3
 python3 -V
 ```
 
-### Nmap
+### Nmap [^6]
 1. Update the package list:
 ```
 sudo apt update
@@ -208,7 +208,7 @@ graph TD
 ## Sources
 [^1]: [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command)
 [^2]: [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
-3. [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#id6)
-4. [Install or Update AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-5. [Install Python](https://www.rosehosting.com/blog/how-to-install-python-on-ubuntu-24-04/)
-6. [Install Nmap](https://www.stationx.net/install-nmap-ubuntu/)
+[^3]: [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#id6)
+[^4]: [Install or Update AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+[^5]: [Install Python](https://www.rosehosting.com/blog/how-to-install-python-on-ubuntu-24-04/)
+[^6]: [Install Nmap](https://www.stationx.net/install-nmap-ubuntu/)
